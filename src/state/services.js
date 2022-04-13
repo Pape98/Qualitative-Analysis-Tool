@@ -1,23 +1,29 @@
 import database from '../config/firebase';
-import { writeBatch, addDoc, collection } from 'firebase/firestore';
+import {
+  writeBatch,
+  addDoc,
+  collection,
+  getDocs,
+  doc,
+} from 'firebase/firestore';
 
 const QUOTES_COLLECTION = 'quotes';
+const TAGS_COLLECTION = 'tags';
 
 export const saveQuotes = async quotes => {
   try {
     const batch = writeBatch(database);
-    console.log(quotes.length);
-    quotes.forEach(quote => {});
 
-    for await (const quoteRef of quotes.map(q =>
-      addDoc(collection(database, QUOTES_COLLECTION), q)
+    for await (const quoteRef of quotes.map(
+      q =>
+        // addDoc(collection(database, QUOTES_COLLECTION), q);
+        2
     )) {
-      batch.set(quoteRef);
+      // batch.set(quoteRef);
     }
-
-    return batch.commit();
+    // await batch.commit();
   } catch (err) {
-    window.alert(err.result.error.message);
+    console.log(err);
   }
 };
 
@@ -37,4 +43,30 @@ export const extractQuotes = async docId => {
   } catch (err) {
     window.alert(err.result.error.message);
   }
+};
+
+export const saveTags = async tags => {
+  try {
+    const batch = writeBatch(database);
+
+    for await (const [tagRef, name] of tags.map(tag => [
+      doc(database, TAGS_COLLECTION, tag),
+      tag,
+    ])) {
+      batch.set(tagRef, { name });
+    }
+    await batch.commit();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getTags = async () => {
+  const tags = [];
+  const querySnapshot = await getDocs(collection(database, TAGS_COLLECTION));
+  querySnapshot.forEach(doc => {
+    tags.push(doc.data());
+  });
+
+  return tags;
 };

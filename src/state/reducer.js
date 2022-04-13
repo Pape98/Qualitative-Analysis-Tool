@@ -8,8 +8,8 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.EXTRACT_QUOTES:
-      return state;
+    case actionTypes.GET_TAGS:
+      return { ...state, tags: action.payload };
     default:
       return state;
   }

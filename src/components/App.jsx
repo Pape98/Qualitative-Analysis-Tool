@@ -1,8 +1,8 @@
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useEffect } from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 
 import { useLogin } from '../hooks';
-import { reducer } from '../state';
+import { reducer, actions, actionTypes } from '../state';
 import { AuthContext, StateContext } from '../context';
 
 import TagsSection from './TagsSection';
@@ -15,6 +15,18 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer);
 
   useLogin(setIsSignedIn);
+
+  useEffect(() => {
+    const getAllTags = async () => {
+      const data = await actions.getTags();
+      dispatch({
+        type: actionTypes.GET_TAGS,
+        payload: data.map(tag => tag.name),
+      });
+    };
+
+    getAllTags();
+  }, []);
 
   return (
     <div className='appContainer'>

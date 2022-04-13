@@ -5,7 +5,9 @@ import { useIsSignedIn, useDispatch } from '../hooks';
 import { actions } from '../state';
 
 const AddDocInput = () => {
-  const [docId, setDocId] = useState('');
+  const [docId, setDocId] = useState(
+    '1oKh-2uMS0lQ_MRxvDx4GcWn7WQWuKkiLKXhJMqJlpCU'
+  );
   const isSignedIn = useIsSignedIn();
   const dispatch = useDispatch();
 
@@ -21,6 +23,8 @@ const AddDocInput = () => {
     }
 
     await actions.extractQuotes(docId);
+    // setDocId('');
+    alert('Quotes successfully extracted!');
   };
 
   return (
@@ -32,6 +36,7 @@ const AddDocInput = () => {
         onClick: () => onExtractQuote(),
       }}
       label='ID'
+      value={docId}
       onChange={e => setDocId(e.target.value)}
     ></Input>
   );

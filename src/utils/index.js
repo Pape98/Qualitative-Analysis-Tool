@@ -38,9 +38,9 @@ export const formatQuotes = comments => {
     };
     const tags = [];
     comment.replies.forEach(reply => {
-      tags.push(reply.content);
+      tags.push(reply.content.toLowerCase());
     });
-    tags.push(comment.content);
+    tags.push(comment.content.toLowerCase());
     data['tags'] = tags;
     res.push(data);
   });
