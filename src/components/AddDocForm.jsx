@@ -4,7 +4,7 @@ import { Input } from 'semantic-ui-react';
 import { useIsSignedIn, useDispatch } from '../hooks';
 import { actions } from '../state';
 
-const AddDocInput = () => {
+const AddDocForm = () => {
   const [docId, setDocId] = useState(
     '1oKh-2uMS0lQ_MRxvDx4GcWn7WQWuKkiLKXhJMqJlpCU'
   );
@@ -42,4 +42,4 @@ const AddDocInput = () => {
   );
 };
 
-export default AddDocInput;
+export default AddDocForm;

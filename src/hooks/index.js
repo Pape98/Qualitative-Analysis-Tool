@@ -17,7 +17,7 @@ export const useDispatch = () => {
   return dispatch;
 };
 
-export const useSelector = () => {
+export const useSelector = selector => {
   const { state } = useContext(StateContext);
-  return state;
+  return selector(state);
 };

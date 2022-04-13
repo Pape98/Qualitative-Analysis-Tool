@@ -1,11 +1,14 @@
 import { Segment, Dropdown } from 'semantic-ui-react';
-
+import QuotesSearchDropdown from './QuotesSearchDropdown';
 const QuotesSection = () => {
   return (
-    <>
+    <div id='quotesSection'>
       <h1>Quotes</h1>
-      <Dropdown placeholder='Skills' fluid multiple selection />
-    </>
+      <QuotesSearchDropdown />
+      <div className='quotesContainer'>
+        
+      </div>
+    </div>
   );
 };
 

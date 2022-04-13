@@ -7,7 +7,7 @@ import { AuthContext, StateContext } from '../context';
 
 import TagsSection from './TagsSection';
 import QuotesSection from './QuotesSection';
-import AddDocInput from './AddDocInput';
+import AddDocForm from './AddDocForm';
 import Menu from './Menu';
 
 const App = () => {
@@ -35,11 +35,11 @@ const App = () => {
           <Menu />
           <Container fluid id='mainContainer'>
             <Grid>
-              <Grid.Column width={6}>
-                <AddDocInput />
+              <Grid.Column width={5}>
+                <AddDocForm />
                 <TagsSection />
               </Grid.Column>
-              <Grid.Column width={10}>
+              <Grid.Column width={11}>
                 <QuotesSection />
               </Grid.Column>
             </Grid>
