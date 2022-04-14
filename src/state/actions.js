@@ -23,4 +23,8 @@ export const getTags = async () => {
   return res;
 };
 
-export const actions = { extractQuotes, getTags };
+export const searchQuotes = tags => {
+  return services.searchQuotes(tags);
+};
+
+export const actions = { extractQuotes, getTags, searchQuotes };

@@ -4,6 +4,10 @@ import { useSelector } from '../hooks';
 const QuotesSearchDropdown = () => {
   const tags = useSelector(state => state?.tags) || [];
 
+  const onSearch = (_e, { value }) => {
+    console.log(value);
+  };
+
   const tagsOptions = tags.map(tag => {
     return {
       key: tag,
@@ -17,7 +21,7 @@ const QuotesSearchDropdown = () => {
       <Dropdown
         placeholder='Select one or more tags'
         fluid
-        search
+        onChange={onSearch}
         multiple
         selection
         options={tagsOptions}

@@ -6,6 +6,7 @@ import {
   getDocs,
   doc,
 } from 'firebase/firestore';
+import { async } from '@firebase/util';
 
 const QUOTES_COLLECTION = 'quotes';
 const TAGS_COLLECTION = 'tags';
@@ -14,14 +15,12 @@ export const saveQuotes = async quotes => {
   try {
     const batch = writeBatch(database);
 
-    for await (const quoteRef of quotes.map(
-      q =>
-        // addDoc(collection(database, QUOTES_COLLECTION), q);
-        2
+    for await (const quoteRef of quotes.map(q =>
+      addDoc(collection(database, QUOTES_COLLECTION), q)
     )) {
-      // batch.set(quoteRef);
+      batch.set(quoteRef);
     }
-    // await batch.commit();
+    await batch.commit();
   } catch (err) {
     console.log(err);
   }
@@ -70,3 +69,5 @@ export const getTags = async () => {
 
   return tags;
 };
+
+export const searchQuotes = async tags => {};

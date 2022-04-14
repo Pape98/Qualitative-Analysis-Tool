@@ -17,7 +17,7 @@ const TagsSection = () => {
               currLetter = tag[0];
               return (
                 <>
-                  <Header as='h3' dividing fluid>
+                  <Header as='h3' dividing>
                     {currLetter.toUpperCase()}
                   </Header>
                   <Label>{tag}</Label>
