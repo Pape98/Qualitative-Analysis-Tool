@@ -46,3 +46,8 @@ body {
 .quotesContainer {
   margin: 50px 0;
 }
+
+#tagsSection .ui.label:hover {
+  background: green;
+  color: white;
+}
