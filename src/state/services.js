@@ -4,26 +4,28 @@ import {
   addDoc,
   collection,
   getDocs,
-  doc,
+  orderBy,
+  query,
+  where,
 } from 'firebase/firestore';
-import { async } from '@firebase/util';
 
 const QUOTES_COLLECTION = 'quotes';
 const TAGS_COLLECTION = 'tags';
+const TAGS_FIELD = 'tags';
+const NAME_FIELD = 'name';
 
 export const saveQuotes = async quotes => {
-  try {
-    const batch = writeBatch(database);
-
-    for await (const quoteRef of quotes.map(q =>
-      addDoc(collection(database, QUOTES_COLLECTION), q)
-    )) {
-      batch.set(quoteRef);
-    }
-    await batch.commit();
-  } catch (err) {
-    console.log(err);
-  }
+  // try {
+  //   const batch = writeBatch(database);
+  //   for await (const quoteRef of quotes.map(q =>
+  //     addDoc(collection(database, QUOTES_COLLECTION), q)
+  //   )) {
+  //     batch.set(quoteRef);
+  //   }
+  //   await batch.commit();
+  // } catch (err) {
+  //   console.log(err);
+  // }
 };
 
 export const extractQuotes = async docId => {
@@ -49,20 +51,22 @@ export const saveTags = async tags => {
     const batch = writeBatch(database);
 
     for await (const [tagRef, name] of tags.map(tag => [
-      doc(database, TAGS_COLLECTION, tag),
+      addDoc(collection(database, TAGS_COLLECTION), { name: tag }),
       tag,
     ])) {
       batch.set(tagRef, { name });
     }
     await batch.commit();
   } catch (err) {
-    console.log(err);
+    console.log('saveTags()', err);
   }
 };
 
 export const getTags = async () => {
   const tags = [];
-  const querySnapshot = await getDocs(collection(database, TAGS_COLLECTION));
+  const querySnapshot = await getDocs(
+    query(collection(database, TAGS_COLLECTION), orderBy(NAME_FIELD))
+  );
   querySnapshot.forEach(doc => {
     tags.push(doc.data());
   });
@@ -70,4 +74,18 @@ export const getTags = async () => {
   return tags;
 };
 
-export const searchQuotes = async tags => {};
+export const searchQuotes = async tags => {
+  console.log(tags);
+  const q = query(
+    collection(database, QUOTES_COLLECTION),
+    where(TAGS_FIELD, 'array-contains', tags[0])
+  );
+
+  const docsSnap = await getDocs(q);
+
+  console.log(docsSnap);
+
+  docsSnap.forEach(doc => {
+    console.log(doc.data());
+  });
+};

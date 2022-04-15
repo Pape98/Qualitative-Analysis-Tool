@@ -1,11 +1,12 @@
 import { Dropdown } from 'semantic-ui-react';
 import { useSelector } from '../hooks';
+import { actions } from '../state';
 
 const QuotesSearchDropdown = () => {
   const tags = useSelector(state => state?.tags) || [];
 
   const onSearch = (_e, { value }) => {
-    console.log(value);
+    actions.searchQuotes(value);
   };
 
   const tagsOptions = tags.map(tag => {

@@ -42,3 +42,7 @@ body {
   margin: 5px;
   cursor: pointer;
 }
+
+.quotesContainer {
+  margin: 50px 0;
+}
