@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { nanoid } from 'nanoid';
 import { Dropdown } from 'semantic-ui-react';
+
 import { useDispatch, useSelector } from '../hooks';
 import { actions, actionTypes } from '../state';
 
@@ -29,9 +31,9 @@ const QuotesSearchDropdown = () => {
     });
   };
 
-  const tagsOptions = tags.map(tag => {
+  const tagsOptions = tags.map((tag, i) => {
     return {
-      key: tag,
+      key: nanoid(),
       value: tag,
       text: tag,
     };

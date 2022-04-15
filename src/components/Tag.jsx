@@ -3,7 +3,7 @@ import { Label } from 'semantic-ui-react';
 import { useDispatch } from '../hooks';
 import { actionTypes } from '../state';
 
-const Tag = ({ label }) => {
+const Tag = ({ label, color }) => {
   const dispatch = useDispatch();
 
   const onClick = () => {
@@ -13,7 +13,11 @@ const Tag = ({ label }) => {
     });
   };
 
-  return <Label onClick={onClick}>{label}</Label>;
+  return (
+    <Label color={color} onClick={onClick}>
+      {label}
+    </Label>
+  );
 };
 
 export default Tag;

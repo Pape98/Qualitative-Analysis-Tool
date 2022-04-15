@@ -4,6 +4,7 @@ const initialState = {
   tags: [],
   selectedTag: '',
   quotes: [],
+  extractorFormState: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +15,11 @@ const reducer = (state = initialState, action) => {
       return { ...state, quotes: action.payload };
     case actionTypes.SELECT_TAG:
       return { ...state, selectedTag: action.payload };
+    case actionTypes.TOGGLE_EXTRACTOR_FORM:
+      return {
+        ...state,
+        extractorFormState: state.extractorFormState ? false : true,
+      };
     default:
       return state;
   }

@@ -1,11 +1,14 @@
-import { Segment, Label, Header } from 'semantic-ui-react';
+import React from 'react';
+
+import { Segment, Header } from 'semantic-ui-react';
+import { nanoid } from 'nanoid';
 
 import { useSelector } from '../hooks';
 import Tag from './Tag';
 
 const TagsSection = () => {
   const tags = useSelector(state => state?.tags) || [];
-
+  console.log(tags);
   let currLetter = '';
   return (
     <div id='tagsSection'>
@@ -16,15 +19,15 @@ const TagsSection = () => {
             if (tag[0] !== currLetter) {
               currLetter = tag[0];
               return (
-                <>
+                <React.Fragment key={nanoid()}>
                   <Header as='h3' dividing>
-                    {currLetter.toUpperCase()}
+                    {currLetter?.toUpperCase()}
                   </Header>
                   <Tag label={tag} />
-                </>
+                </React.Fragment>
               );
             }
-            return <Tag label={tag} />;
+            return <Tag key={nanoid()} label={tag} />;
           })}
         </div>
       </Segment>

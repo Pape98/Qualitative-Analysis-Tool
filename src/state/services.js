@@ -47,7 +47,7 @@ export const extractQuotes = async docId => {
 
     return comments;
   } catch (err) {
-    window.alert(err.result.error.message);
+    console.log(err);
   }
 };
 
@@ -63,7 +63,7 @@ export const saveTags = async tags => {
     }
     await batch.commit();
   } catch (err) {
-    console.log('saveTags()', err);
+    console.log(err);
   }
 };
 

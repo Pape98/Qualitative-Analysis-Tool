@@ -21,7 +21,7 @@ const App = () => {
       const data = await actions.getTags();
       dispatch({
         type: actionTypes.GET_TAGS,
-        payload: data.map(tag => tag.name),
+        payload: data
       });
     };
 
@@ -36,8 +36,10 @@ const App = () => {
           <Container fluid id='mainContainer'>
             <Grid>
               <Grid.Column width={5}>
-                <AddDocForm />
-                <TagsSection />
+                <div className='sticky'>
+                  <AddDocForm />
+                  <TagsSection />
+                </div>
               </Grid.Column>
               <Grid.Column width={11}>
                 <QuotesSection />

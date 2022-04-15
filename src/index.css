@@ -18,27 +18,19 @@ body {
 
 #mainContainer {
   padding-top: 80px;
+  position: relative;
 }
 
 .ui.menu {
   background-color: #1b1c1d;
 }
 
-.tagsContainer {
-  /* display: flex;
-  flex-wrap: wrap;
-  gap: 10px; */
-}
-
-#tagsSection {
-  margin-top: 30px;
-}
 #tagsSection .ui.segment {
   overflow-y: scroll;
-  max-height: 75vh;
+  max-height: 80vh;
 }
 
-#tagsSection .ui.label {
+.ui.label {
   margin: 5px;
   cursor: pointer;
 }
@@ -53,5 +45,25 @@ body {
 }
 
 .quoteText {
-  font-size: 20px;
+  font-size: 16px;
+}
+
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.display--none {
+  display: none;
+}
+
+.display--block {
+  display: block;
+}
+
+.ui.segment.quoteInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

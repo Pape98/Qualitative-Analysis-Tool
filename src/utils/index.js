@@ -29,12 +29,14 @@ export const handleClientLoad = setIsSignedIn => {
   gapi.load('client:auth2', initClient);
 };
 
-export const formatQuotes = comments => {
+export const formatQuotes = (comments, author) => {
+  if (comments === undefined) return [];
   const res = [];
 
   comments.forEach(comment => {
     const data = {
       text: comment.quotedFileContent?.value.replaceAll('&#39;', "'"),
+      author,
     };
     const tags = [];
     comment.replies.forEach(reply => {

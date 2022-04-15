@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import { Input } from 'semantic-ui-react';
+import { Segment, Form, Button, Header } from 'semantic-ui-react';
 
-import { useIsSignedIn, useDispatch } from '../hooks';
-import { actions } from '../state';
+import { useIsSignedIn, useDispatch, useSelector } from '../hooks';
+import { actions, actionTypes } from '../state';
 
 const AddDocForm = () => {
-  const [docId, setDocId] = useState(
-    '1oKh-2uMS0lQ_MRxvDx4GcWn7WQWuKkiLKXhJMqJlpCU'
-  );
+  const [docId, setDocId] = useState('');
+  const [author, setAuthor] = useState('');
   const isSignedIn = useIsSignedIn();
   const dispatch = useDispatch();
+  const toggleState = useSelector(state => state?.extractorFormState);
+
+  const displayClass = toggleState ? 'display--block' : 'display--none';
 
   const onExtractQuote = async () => {
     if (isSignedIn === false) {
@@ -17,28 +19,48 @@ const AddDocForm = () => {
       return;
     }
 
-    if (docId.length === 0) {
-      alert('Error: ID of document cannot be empty');
+    if (docId.length === 0 || author.length === 0) {
+      alert('Error: IDs cannot be empty');
       return;
     }
 
-    await actions.extractQuotes(docId);
-    // setDocId('');
-    alert('Quotes successfully extracted!');
+    const { tags } = await actions.extractQuotes(author, docId);
+
+    setDocId('');
+    setAuthor('');
+
+    dispatch({
+      type: actionTypes.GET_TAGS,
+      payload: tags,
+    });
+
+    // alert('Quotes successfully extracted!');
   };
 
   return (
-    <Input
-      fluid
-      placeholder='Enter ID of Google Document'
-      action={{
-        icon: 'search',
-        onClick: () => onExtractQuote(),
-      }}
-      label='ID'
-      value={docId}
-      onChange={e => setDocId(e.target.value)}
-    ></Input>
+    <Segment className={displayClass}>
+      <Header as='h4'>Extract quotes</Header>
+      <Form onSubmit={onExtractQuote}>
+        <Form.Input
+          action={{
+            icon: 'user',
+          }}
+          placeholder='Name or ID of Participant'
+          value={author}
+          onChange={e => setAuthor(e.target.value)}
+        />
+        <Form.Input
+          fluid
+          placeholder='ID of Google Document'
+          action={{
+            icon: 'file',
+          }}
+          value={docId}
+          onChange={e => setDocId(e.target.value)}
+        ></Form.Input>
+        <Button>Extract</Button>
+      </Form>
+    </Segment>
   );
 };
 
