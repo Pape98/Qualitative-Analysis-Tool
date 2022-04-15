@@ -7,7 +7,6 @@ import {
   query,
   where,
   writeBatch,
-  get,
 } from 'firebase/firestore';
 
 const collections = {
@@ -80,23 +79,19 @@ export const getTags = async () => {
   return tags;
 };
 
-export const searchQuotes = async tags => {
-  // const q = query(
-  //   collection(database, collections.QUOTES),
-  //   where(fields.TAGS, 'array-contains', 'connecting with people')
-  // );
+export const searchQuotes = async tag => {
+  if (tag.length === 0) return [];
 
-  if (tags.length === 0) return;
+  const q = query(
+    collection(database, collections.QUOTES),
+    where('tags', 'array-contains', tag)
+  );
 
-  let query = database.collection(collections.TAGS);
-
-  tags.forEach(tag => {
-    query = query.where(fields.TAGS, '==', tag);
-  });
-
-  const docsSnap = await query.get();
-
+  const docsSnap = await getDocs(q);
+  const res = [];
   docsSnap.forEach(doc => {
-    console.log(doc.data());
+    res.push(doc.data());
   });
+
+  return res;
 };

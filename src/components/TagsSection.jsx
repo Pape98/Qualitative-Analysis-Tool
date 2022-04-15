@@ -1,10 +1,10 @@
 import { Segment, Label, Header } from 'semantic-ui-react';
 
 import { useSelector } from '../hooks';
+import Tag from './Tag';
 
 const TagsSection = () => {
   const tags = useSelector(state => state?.tags) || [];
-  const tagsComponent = tags.map(tag => <Label>{tag}</Label>);
 
   let currLetter = '';
   return (
@@ -20,12 +20,11 @@ const TagsSection = () => {
                   <Header as='h3' dividing>
                     {currLetter.toUpperCase()}
                   </Header>
-                  <Label>{tag}</Label>
+                  <Tag label={tag} />
                 </>
               );
             }
-
-            return <Label>{tag}</Label>;
+            return <Tag label={tag} />;
           })}
         </div>
       </Segment>

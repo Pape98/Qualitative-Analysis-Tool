@@ -48,6 +48,10 @@ body {
 }
 
 #tagsSection .ui.label:hover {
-  background: green;
+  background: #21ba45;
   color: white;
+}
+
+.quoteText {
+  font-size: 20px;
 }

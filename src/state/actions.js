@@ -19,12 +19,11 @@ const extractQuotes = async docId => {
 };
 
 export const getTags = async () => {
-  const res = await services.getTags();
-  return res;
+  return services.getTags();
 };
 
-export const searchQuotes = tags => {
-  return services.searchQuotes(tags);
+export const searchQuotes = tag => {
+  return services.searchQuotes(tag);
 };
 
 export const actions = { extractQuotes, getTags, searchQuotes };
