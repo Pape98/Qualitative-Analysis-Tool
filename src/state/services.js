@@ -95,3 +95,17 @@ export const searchQuotes = async tag => {
 
   return res;
 };
+
+export const doesTagExist = async tag => {
+  const querySnapshot = await getDocs(
+    query(collection(database, collections.TAGS), where('name', '==', tag))
+  );
+
+  const docs = [];
+
+  querySnapshot.forEach(doc => {
+    docs.push(doc.data());
+  });
+
+  return docs.length === 1;
+};

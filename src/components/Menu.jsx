@@ -1,6 +1,6 @@
 import { Menu, Button, Header } from 'semantic-ui-react';
 import { useIsSignedIn, useDispatch } from '../hooks';
-import { actionTypes } from '../state';
+import { actionTypes, actions } from '../state';
 
 const CustomMenu = () => {
   const isSignedIn = useIsSignedIn();
@@ -20,12 +20,21 @@ const CustomMenu = () => {
     });
   };
 
+  const processAllDocuments = () => {
+    actions.processAllDocuments();
+  };
+
   return (
     <Menu size='large' fixed='top' color='black' borderless inverted>
       <Menu.Item>
         <Header inverted>Quantitative Analysis Tool</Header>
       </Menu.Item>
       <Menu.Item onClick={toggleForm}> Extract Quotes</Menu.Item>
+      <Menu.Item>
+        <Button size='mini' onClick={processAllDocuments}>
+          Process all documents
+        </Button>
+      </Menu.Item>
       <Menu.Menu position='right'>
         <Menu.Item>
           {isSignedIn === false && (

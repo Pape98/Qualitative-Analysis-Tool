@@ -1,5 +1,5 @@
-import { Dimmer, Loader } from 'semantic-ui-react';
-import { useDispatch, useSelector } from '../hooks';
+import { Loader } from 'semantic-ui-react';
+import { useSelector } from '../hooks';
 import { nanoid } from 'nanoid';
 
 import QuotesSearchDropdown from './QuotesSearchDropdown';

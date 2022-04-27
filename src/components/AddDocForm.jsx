@@ -5,8 +5,10 @@ import { useIsSignedIn, useDispatch, useSelector } from '../hooks';
 import { actions, actionTypes } from '../state';
 
 const AddDocForm = () => {
-  const [docId, setDocId] = useState('');
-  const [author, setAuthor] = useState('');
+  const [docId, setDocId] = useState(
+    '1oto1gkKuiZF31MK5kXbYkwo76Mdeq4pVK5eLCowDHhA'
+  );
+  const [author, setAuthor] = useState('P1 - Adam');
   const isSignedIn = useIsSignedIn();
   const dispatch = useDispatch();
   const toggleState = useSelector(state => state?.extractorFormState);

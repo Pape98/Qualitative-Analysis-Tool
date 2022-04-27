@@ -10,7 +10,7 @@ const Quote = ({ quote }) => {
     <Tag
       key={nanoid()}
       label={tag}
-      color={tag === selectedTag ? 'green' : 'gray'}
+      color={tag === selectedTag ? 'green' : 'grey'}
     />
   ));
   return (

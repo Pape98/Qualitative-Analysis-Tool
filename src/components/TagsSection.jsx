@@ -8,7 +8,7 @@ import Tag from './Tag';
 
 const TagsSection = () => {
   const tags = useSelector(state => state?.tags) || [];
-  console.log(tags);
+
   let currLetter = '';
   return (
     <div id='tagsSection'>
