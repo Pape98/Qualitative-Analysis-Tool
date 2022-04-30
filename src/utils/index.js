@@ -34,7 +34,7 @@ export const formatQuotes = (comments, author) => {
   const res = [];
 
   comments.forEach(comment => {
-    const data = {
+    let data = {
       text: comment.quotedFileContent?.value.replaceAll('&#39;', "'"),
       author,
     };
@@ -44,6 +44,12 @@ export const formatQuotes = (comments, author) => {
     });
     tags.push(comment.content.toLowerCase());
     data['tags'] = tags;
+
+    data = {
+      author: data.author || '',
+      text: data.text || '',
+      tags: data.tags || [],
+    };
     res.push(data);
   });
 

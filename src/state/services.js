@@ -22,14 +22,15 @@ const fields = {
 export const saveQuotes = async quotes => {
   try {
     const batch = writeBatch(database);
-    for await (const quoteRef of quotes.map(q =>
-      addDoc(collection(database, collections.QUOTES), q)
-    )) {
+    for await (const quoteRef of quotes.map(q => {
+      return addDoc(collection(database, collections.QUOTES), q);
+    })) {
       batch.set(quoteRef);
     }
     await batch.commit();
   } catch (err) {
     console.log(err);
+    return;
   }
 };
 
@@ -56,7 +57,7 @@ export const saveTags = async tags => {
     const batch = writeBatch(database);
 
     for await (const [tagRef, name] of tags.map(tag => [
-      addDoc(collection(database, fields.TAGS), { name: tag }),
+      addDoc(collection(database, fields.TAGS), { name: tag || '' }),
       tag,
     ])) {
       batch.set(tagRef, { name });
